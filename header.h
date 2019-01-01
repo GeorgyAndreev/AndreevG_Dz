@@ -9,6 +9,7 @@
 #include <string>
 #include <bitset>
 #include <fstream>
+#include <ctime>
 
 // global constants
 
