@@ -31,9 +31,9 @@ void decryption(const std::string&, const std::string&);
 
 void itemCounter(const std::string&);
 
-std::bitset<32> strToBits(unsigned char*);
+std::bitset<32> strToBits(unsigned char [4]);
 
-void bitsToStr(unsigned char*, std::bitset<32>&);
+void bitsToStr(unsigned char [4], std::bitset<32>&);
 
 void leftShift (std::bitset<32>&);
 

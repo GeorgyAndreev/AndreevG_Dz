@@ -26,6 +26,7 @@ void itemCounter(const std::string& file)
         {
             std::ofstream out;
             out.open(file, std::ios::app | std::ios::binary);
+            srand(time(NULL));
             for (size_t i = 0; i < 8 - (count % 8); i++)
             {
                 out << (rand() % 10);
@@ -35,7 +36,7 @@ void itemCounter(const std::string& file)
     }
 }
 
-std::bitset<32> strToBits(unsigned char * str)
+std::bitset<32> strToBits(unsigned char str[4])
 {
     std::bitset<32> bits;
     for (size_t i = 0; i < 4; i++) {
@@ -47,7 +48,7 @@ std::bitset<32> strToBits(unsigned char * str)
     return bits;
 }
 
-void bitsToStr(unsigned char* str, std::bitset<32>& bits)
+void bitsToStr(unsigned char str[4], std::bitset<32>& bits)
 {
     for (int i = 3; i >= 0; i--)
     {
