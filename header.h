@@ -5,21 +5,19 @@
 #ifndef ANDREEVG_DZ_HEADER_H
 #define ANDREEVG_DZ_HEADER_H
 
-#include <iostream>
 #include <string>
-#include <bitset>
+#include <iostream>
 #include <fstream>
-#include <ctime>
 
 // global constants
 
-const size_t K = 0xffffffff - 0xfffffff;
+const unsigned long long int K = 0xffffffff - 0xfffffff;
 
 const size_t R = 15;
 
 const size_t N = 24;
 
-const size_t M = 0xffffffff;
+const unsigned long long int M = 0xffffffff;
 
 // main sources
 
@@ -31,12 +29,13 @@ void decryption(const std::string&, const std::string&);
 
 void itemCounter(const std::string&);
 
-std::bitset<32> strToBits(unsigned char [4]);
+unsigned int strToBits(const unsigned char[]);
 
-void bitsToStr(unsigned char [4], std::bitset<32>&);
+void bitsToStr(unsigned char[], unsigned int);
 
-void leftShift (std::bitset<32>&);
+void leftShift(unsigned int& bits);
 
-void rightShift (std::bitset<32>&);
+void rightShift(unsigned int& bits);
+
 
 #endif //ANDREEVG_DZ_HEADER_H
