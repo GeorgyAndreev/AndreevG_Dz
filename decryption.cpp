@@ -23,8 +23,8 @@ void decryption(const std::string& in, const std::string& out)
             unsigned char str2[4];
             for (size_t i = 0; i < 4; i++)
             {
-                str1[i] = ch[i];
-                str2[i] = ch[i + 4];
+                str1[i] = (unsigned char)ch[i];
+                str2[i] = (unsigned char)ch[i + 4];
             }
             decrypting(str1, str2);
             for (auto item : str1)
@@ -43,18 +43,14 @@ void decryption(const std::string& in, const std::string& out)
 
 void decrypting(unsigned char str1[4], unsigned char str2[4])
 {
-    std::bitset<32> bits1 = strToBits(str1);
-    std::bitset<32> bits2 = strToBits(str2);
-    //std::cout << "bits1,dec" << std::endl << bits1 << std::endl;
-    //std::cout << "bits2,dec" << std::endl << bits2 << std::endl;
+    unsigned int bits1 = strToBits(str1);
+    unsigned int bits2 = strToBits(str2);
     for (size_t i = 0; i < N; i++)
     {
-        //bits1 = (bits1.to_ulong() - bits2.to_ulong()) % M;
-        //bits1 = bits1.to_ulong() + M - bits2.to_ulong();
+        bits1 = bits1 - bits2;
         bits2 ^= K;
         rightShift(bits1);
-        //bits2 = (bits2.to_ulong() - bits1.to_ulong()) % M;
-        //bits2 = bits2.to_ulong() + M - bits1.to_ulong();
+        bits2 = bits2 - bits1;
         rightShift(bits2);
         bits1 ^= K;
     }
