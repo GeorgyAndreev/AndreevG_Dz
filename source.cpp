@@ -26,48 +26,47 @@ void itemCounter(const std::string& file)
         {
             std::ofstream out;
             out.open(file, std::ios::app | std::ios::binary);
-            srand(time(NULL));
             for (size_t i = 0; i < 8 - (count % 8); i++)
             {
-                out << (rand() % 10);
+                out << ' ';
             }
             out.close();
         }
     }
 }
 
-std::bitset<32> strToBits(unsigned char str[4])
+unsigned int strToBits(const unsigned char str[4])
 {
-    std::bitset<32> bits;
-    for (size_t i = 0; i < 4; i++) {
+    unsigned int bits = 0;
+    for (size_t i = 0; i < 4; i++)
+    {
         bits <<= 8;
-        int symId = str[i];
-        std::bitset<32> tempBits(symId);
-        bits = bits | tempBits;
+        unsigned int tmp = str[i];
+        bits |= tmp;
     }
     return bits;
 }
 
-void bitsToStr(unsigned char str[4], std::bitset<32>& bits)
+void bitsToStr(unsigned char str[4], unsigned int bits)
 {
     for (int i = 3; i >= 0; i--)
     {
-        str[i] = (bits.to_ulong()) % 0x100;
+        str[i] = (unsigned char)(bits % 0x100);
         bits >>= 8;
     }
 }
 
-void leftShift (std::bitset<32>& bits)
+void leftShift(unsigned int& bits)
 {
-    std::bitset<32> tmpBits = bits;
+    auto tmpBits = bits;
     tmpBits >>= (32 - R);
     bits <<= R;
     bits |= tmpBits;
 }
 
-void rightShift (std::bitset<32>& bits)
+void rightShift(unsigned int& bits)
 {
-    std::bitset<32> tmpBits = bits;
+    auto tmpBits = bits;
     tmpBits <<= (32 - R);
     bits >>= R;
     bits |= tmpBits;
