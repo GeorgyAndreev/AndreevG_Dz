@@ -24,8 +24,8 @@ void encryption(const std::string& in, const std::string& out)
             unsigned char str2[4];
             for (size_t i = 0; i < 4; i++)
             {
-                str1[i] = ch[i];
-                str2[i] = ch[i + 4];
+                str1[i] = (unsigned char)ch[i];
+                str2[i] = (unsigned char)ch[i + 4];
             }
             encrypting(str1, str2);
             for (auto item : str1)
@@ -44,20 +44,20 @@ void encryption(const std::string& in, const std::string& out)
 
 void encrypting(unsigned char str1[4], unsigned char str2[4])
 {
-    std::bitset<32> bits1 = strToBits(str1);
-    std::bitset<32> bits2 = strToBits(str2);
+    unsigned int bits1 = strToBits(str1);
+    unsigned int bits2 = strToBits(str2);
     for (size_t i = 0; i < N; i++)
     {
-        bits1 ^= K; // XOR
-        leftShift(bits2); // побитовый сдвиг влево
+        // XOR
+        bits1 ^= K;
+        // побитовый сдвиг влево
+        leftShift(bits2);
         // операция сложения bits1 и bits2 по модулю M
-        //bits2 = (bits2.to_ulong() + bits1.to_ulong()) % M;
+        bits2 = (bits2 + bits1) % M;
         leftShift(bits1);
         bits2 ^= K;
-        //bits1 = (bits1.to_ulong() + bits2.to_ulong()) % M;
+        bits1 = (bits1 + bits2) % M;
     }
-    //std::cout << "bits1,enc" << std::endl << bits1 << std::endl;
-    //std::cout << "bits2,enc" << std::endl << bits2 << std::endl;
     bitsToStr(str1, bits1);
     bitsToStr(str2, bits2);
 }
